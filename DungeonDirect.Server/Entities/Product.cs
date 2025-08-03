@@ -15,7 +15,7 @@ public class Product
     [Precision(18,2)]
     public decimal Price { get; set; } = 0;
 
-    public required int PictureUrl { get; set; }
+    public required string PictureUrl { get; set; }
 
     public required string Type { get; set; }
 

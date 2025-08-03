@@ -40,7 +40,7 @@ public class DbInitializer
                 Name = "Flamebrand Sword",
                 Description = "A longsword imbued with the power of fire.",
                 Price = 129.99m,
-                PictureUrl = 101,
+                PictureUrl = "/images/products/flamebrandsword.png",
                 Type = "Weapon",
                 Brand = "Emberforge",
                 QuantityInStock = 15
@@ -51,7 +51,7 @@ public class DbInitializer
                 Name = "Arcane Staff of Wisdom",
                 Description = "A staff used by archmages to focus spells.",
                 Price = 189.50m,
-                PictureUrl = 102,
+                PictureUrl = "/images/products/arcanestaffofwisdom.png",
                 Type = "Weapon",
                 Brand = "MysticWorks",
                 QuantityInStock = 8
@@ -62,7 +62,7 @@ public class DbInitializer
                 Name = "Shadow Dagger",
                 Description = "A cursed blade that whispers to its wielder.",
                 Price = 89.75m,
-                PictureUrl = 103,
+                PictureUrl = "/images/products/shadowdagger.png",
                 Type = "Weapon",
                 Brand = "Darksteel",
                 QuantityInStock = 20
@@ -73,7 +73,7 @@ public class DbInitializer
                 Name = "Elven Longbow",
                 Description = "Crafted from sacred yew by woodland elves.",
                 Price = 149.00m,
-                PictureUrl = 104,
+                PictureUrl = "/images/products/elvenlongbow.png",
                 Type = "Weapon",
                 Brand = "Sylvangrove",
                 QuantityInStock = 10
@@ -84,7 +84,7 @@ public class DbInitializer
                 Name = "Potion of Greater Healing",
                 Description = "Restores 100 HP when consumed.",
                 Price = 29.99m,
-                PictureUrl = 105,
+                PictureUrl = "/images/products/potionofgreaterhealing.png",
                 Type = "Consumable",
                 Brand = "Alchemist's Guild",
                 QuantityInStock = 50
@@ -95,7 +95,7 @@ public class DbInitializer
                 Name = "Dragonhide Armor",
                 Description = "Tough leather armor made from dragon scales.",
                 Price = 249.99m,
-                PictureUrl = 106,
+                PictureUrl = "/images/products/dragonhidearmor.png",
                 Type = "Armor",
                 Brand = "Drakeforge",
                 QuantityInStock = 5
@@ -106,7 +106,7 @@ public class DbInitializer
                 Name = "Ring of Invisibility",
                 Description = "Grants temporary invisibility to the wearer.",
                 Price = 399.95m,
-                PictureUrl = 107,
+                PictureUrl = "/images/products/ringofinvisibility.png",
                 Type = "Accessory",
                 Brand = "Whisperforge",
                 QuantityInStock = 2
@@ -117,7 +117,7 @@ public class DbInitializer
                 Name = "Scroll of Fireball",
                 Description = "Unleash a devastating fireball on your enemies.",
                 Price = 44.99m,
-                PictureUrl = 108,
+                PictureUrl = "/images/products/scrolloffireball.png",
                 Type = "Consumable",
                 Brand = "Scriptorium Arcanum",
                 QuantityInStock = 25
@@ -128,7 +128,7 @@ public class DbInitializer
                 Name = "Shield of the Guardian",
                 Description = "A blessed shield that protects against dark magic.",
                 Price = 179.00m,
-                PictureUrl = 109,
+                PictureUrl = "/images/products/shieldoftheguardian.png",
                 Type = "Armor",
                 Brand = "Aegiscraft",
                 QuantityInStock = 7
@@ -139,7 +139,7 @@ public class DbInitializer
                 Name = "Boots of Swiftness",
                 Description = "Increases movement speed of the wearer.",
                 Price = 99.00m,
-                PictureUrl = 110,
+                PictureUrl = "/images/products/bootsofswiftness.png",
                 Type = "Armor",
                 Brand = "Fleetstep",
                 QuantityInStock = 12

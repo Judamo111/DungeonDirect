@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@mui/material/*": [ "node_modules/@mui/material/*" ]
+    }
+  },
+  "exclude": [ "node_modules" ]
+}

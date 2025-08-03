@@ -8,11 +8,11 @@ using eCommerceApp.Data;
 
 #nullable disable
 
-namespace eCommerceApp.Server.Migrations
+namespace DungeonDirect.Server.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250731032408_AddPricePrecision")]
-    partial class AddPricePrecision
+    [Migration("20250802175120_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,10 +43,12 @@ namespace eCommerceApp.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PictureUrl")
-                        .HasColumnType("int");
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("QuantityInStock")
