@@ -13,7 +13,7 @@ export default function Header({ toggleDarkMode, darkMode }) {
         <AppBar
             position="fixed"
             sx={{
-                backgroundColor: theme.palette.mode === 'light' ? '#079ba6' : 'default',
+                backgroundColor: theme.palette.mode === 'light' ? '#754518ff' : 'default',
                 color: theme.palette.mode === 'light' ? '#fff' : 'inherit'
             }}
             elevation={2}
