@@ -39,7 +39,7 @@ function ProductCard({ product }) {
                     variant="h6"
                     sx={{color: 'secondary.main'} }
                 >
-                    ${(product.price).toFixed(2)}
+                    {(product.price) + 'gp'}
                 </Typography>
             </CardContent>
             <CardActions

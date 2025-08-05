@@ -11,7 +11,7 @@ using eCommerceApp.Data;
 namespace DungeonDirect.Server.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250802175120_InitialCreate")]
+    [Migration("20250805022905_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,7 +33,6 @@ namespace DungeonDirect.Server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Brand")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -44,12 +43,10 @@ namespace DungeonDirect.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PictureUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("int");

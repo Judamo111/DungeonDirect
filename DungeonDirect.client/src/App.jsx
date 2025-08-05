@@ -15,7 +15,7 @@ function App() {
             <CssBaseline />
             <Header />
             <Box sx={{ minHeight: '100vh', bgcolor: theme.palette.background.default }}>
-                <Container maxWidth="xl" sx={{ mt: 14 }}>
+                <Container maxWidth="xl" sx={{ mt: 20}}>
                     <Outlet />
                 </Container>
             </Box>
