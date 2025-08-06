@@ -21,6 +21,8 @@ export const navLinkStyles = {
   cursor: 'pointer',
   fontSize: '14px',
   mr: 1,
+  color: 'white',
+  '&:hover': {color: 'yellow', }
 };
 
 
@@ -31,7 +33,14 @@ export const cartTextStyles = {
 };
 
 export const cartIconStyles = {
+  transform: 'scale(1.3)',
   color: 'white',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+  padding: '4px', // add space to prevent clipping
+  overflow: 'visible', // critical if scaling
 };
 
 

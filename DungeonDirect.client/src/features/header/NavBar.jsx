@@ -31,6 +31,12 @@ import navMenus from '/src/data/navMenus';
 
 export default function Header({ toggleDarkMode, darkMode }) {
     const theme = useTheme();
+    
+    const accountlink = { title: 'Account', path: '/account' };
+    const cartlink = { title: 'Cart', path: '/cart' };
+    const homelink = { title: 'Home', path: '/' };
+    const specialslink = { title: 'Specials', path: '/catalogue/specials' };
+    const newreleaseslink = { title: 'New Releases', path: '/catalogue/new-releases' };
 
     function cartIconSVG() {
         return (
@@ -43,10 +49,6 @@ export default function Header({ toggleDarkMode, darkMode }) {
     }
 
 
-    const accountlink = { title: 'Account', path: '/account' };
-    const cartlink = { title: 'Cart', path: '/cart' };
-
-    const homelink = { title: 'Home', path: '/' };
 
 
 
@@ -63,9 +65,21 @@ export default function Header({ toggleDarkMode, darkMode }) {
                     {/* Navigation Links*/}
                     <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto'}}>
                         <Box sx={menuBoxStyles}>
-                            <Typography variant="body1" sx={navLinkStyles}>New Releases</Typography>
-                            <Typography variant="body" sx={navLinkStyles}>Specials</Typography>
+                            <NavLink to={newreleaseslink.path} style={{ textDecoration: 'none' }}>
+                                <Typography variant="body" sx={navLinkStyles}
+                                >
+                                    {newreleaseslink.title}
+                                </Typography>
+                                </NavLink>
+
+                            <NavLink to={specialslink.path} style={{ textDecoration: 'none' }}>
+                                <Typography variant="body" sx={navLinkStyles}>
+                                {specialslink.title}
+                                </Typography>
+                            </NavLink>
                         </Box>
+
+
 
                         {/* Account and Cart Icons */}
                         <IconButton component={NavLink} to={accountlink.path} key={accountlink.path} edge="end" color="inherit" aria-label="account" sx={accountIconButtonStyles}>
@@ -95,7 +109,7 @@ export default function Header({ toggleDarkMode, darkMode }) {
                 >
                 <Box sx={{ display: 'flex', width: '100%' }}>
                     {navMenus.map((menu, index) => (
-                        <NavMenuButton component={NavLink} key={index} title={menu.title} items={menu.items} />
+                        <NavMenuButton key={index} title={menu.title} items={menu.items} path={menu.path} />
                     ))}
                 </Box>
                 </Container>

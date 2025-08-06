@@ -1,16 +1,17 @@
 import React, { useState, useRef } from 'react';
 import { Box, Button, Typography, Paper } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   menuButtonStyles,
   dropdownPaperStyles,
   dropdownItemStyles,
-  menuItemWrapperStyles,
+  menuItemWrapperStyles
 } from '/src/theme/menuStyles';
 
-export default function NavMenuButton({ title, items }) {
+export default function NavMenuButton({ title, items, path }) {
   const [hovering, setHovering] = useState(false);
   const timeoutRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleEnter = () => {
     clearTimeout(timeoutRef.current);
@@ -23,28 +24,39 @@ export default function NavMenuButton({ title, items }) {
     }, 100);
   };
 
+  const handleClick = () => {
+    navigate(path);
+  };
+
+  const handleDropdownClick = (subPath) => {
+    navigate(subPath);
+    setHovering(false);
+  };
+
   return (
     <Box
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      sx={{ ...menuItemWrapperStyles }} // fill space evenly
+      sx={menuItemWrapperStyles}
     >
-      <Button sx={menuButtonStyles(hovering)} fullWidth>
+      <Button
+        sx={menuButtonStyles(hovering)}
+        fullWidth
+        onClick={handleClick} 
+      >
         {title}
       </Button>
 
       {hovering && (
         <Paper elevation={3} sx={dropdownPaperStyles}>
           {items.map((item, index) => (
-            <NavLink
+            <Box
               key={index}
-              to={item.path}
-              style={{ textDecoration: 'none', color: 'inherit' }}
+              sx={dropdownItemStyles}
+              onClick={() => handleDropdownClick(item.path)} 
             >
-              <Box sx={dropdownItemStyles}>
-                <Typography variant="body2">{item.label}</Typography>
-              </Box>
-            </NavLink>
+              <Typography variant="body2">{item.label}</Typography>
+            </Box>
           ))}
         </Paper>
       )}
