@@ -1,14 +1,11 @@
 ﻿using eCommerceApp.Data;
 using eCommerceApp.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace eCommerceApp.Server.Controllers
+namespace DungeonDirect.Server.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductsController(StoreContext context) : ControllerBase
+    public class ProductsController(StoreContext context) : BaseApiController
     {
         //a GET method to collect all of the products in the store and return them as a list
         [HttpGet]

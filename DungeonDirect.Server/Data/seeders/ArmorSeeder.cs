@@ -28,12 +28,14 @@ namespace DungeonDirect.Server.Data.seeders
                 {
                     Name = detail.Name,
                     Description = detail.Desc != null ? string.Join("\n", detail.Desc) : null,
-                    Price = detail.Cost.Quantity,
+                    Price = detail.Cost?.Quantity,
                     Type = detail.Armor_Category ?? "Unknown",
                     Category = detail.Equipment_Category.Name ?? "Armor",
                     Brand = "D&D SRD",
                     PictureUrl = $"/images/products/{detail.Name}"
                 };
+
+                await Task.Delay(500);
             }
                 await context.SaveChangesAsync();
         }

@@ -57,7 +57,6 @@ export const router = createBrowserRouter([
             {path: 'account', element: <Account />},
             {path: 'login', element: <Login />},
             {path: 'register', element: <Register />},
-            {path: 'products/:id', element: <ProductDetails />},
             {
                 path: 'catalogue',
                 element: <Catalogue />,
@@ -68,7 +67,9 @@ export const router = createBrowserRouter([
                     {path: 'thief', element: <ThiefAll />},
                     {path: 'ranger', element: <ThiefAll />},
                     {path: 'cleric', element: <ClericAll />},
+                    
                     {path: 'all-products', element: <AllProducts />},
+                    {path: ':id', element: <ProductDetails />},
                     
                     {path: 'warrior/armor', element: <WarriorArmor />},
                     {path: 'warrior/weapons', element: <WarriorWeapons />},

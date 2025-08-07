@@ -2,7 +2,7 @@
 {
     public class CostDto
 {
-    public int Quantity { get; set; }
-    public required string Unit { get; set; }
+    public int? Quantity { get; set; }
+    public string? Unit { get; set; }
 }
 }

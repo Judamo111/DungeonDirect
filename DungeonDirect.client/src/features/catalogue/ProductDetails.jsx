@@ -49,11 +49,11 @@ export default function ProductDetails() {
                 )}
             </Grid>
             <Grid size={6}>
-                <Typography variant="h3" color='secondary'>
+                <Typography variant="h3">
                     {product.name}
                 </Typography>
                 <Divider sx={{ my: 2 }} />
-                <Typography variant="h4" color='secondary'>
+                <Typography variant="h4">
                     ${product.price.toFixed(2)}
                 </Typography>
                 <TableContainer>

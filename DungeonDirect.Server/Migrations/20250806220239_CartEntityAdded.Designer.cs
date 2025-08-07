@@ -11,8 +11,8 @@ using eCommerceApp.Data;
 namespace DungeonDirect.Server.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250805022905_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250806220239_CartEntityAdded")]
+    partial class CartEntityAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,10 @@ namespace DungeonDirect.Server.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -45,7 +49,7 @@ namespace DungeonDirect.Server.Migrations
                     b.Property<string>("PictureUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("Price")
                         .HasColumnType("int");
 
                     b.Property<int>("QuantityInStock")

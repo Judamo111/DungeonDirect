@@ -1,4 +1,5 @@
 using DungeonDirect.Server.Data.seeders;
+using DungeonDirect.Server.Middleware;
 using eCommerceApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,10 +14,13 @@ builder.Services.AddDbContext<StoreContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddCors();
+builder.Services.AddTransient<ExceptionMiddleware>();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(opt =>
 {
     opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:5173");
@@ -24,16 +28,20 @@ app.UseCors(opt =>
 
 app.MapControllers();
 
-//DbInitializer.InitDb(app);
+DbInitializer.InitDb(app);
 
-// Seed the database with initial data
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
-var seeder = new WeaponSeeder(
-    services.GetRequiredService<HttpClient>(),
-    services.GetRequiredService<StoreContext>()
-);
-await seeder.SeedWeaponsAsync();
+//Seed the database with initial data
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var context = services.GetRequiredService<StoreContext>();
+//    var httpClient = services.GetRequiredService<HttpClient>();
+
+//    context.Database.Migrate();
+
+//    var seeder = new DbSeeder(httpClient, context);
+//    await seeder.SeedAllAsync();
+//}
 
 
 app.Run();

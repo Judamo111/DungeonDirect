@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 
 function ProductCard({ product }) {
@@ -46,7 +47,7 @@ function ProductCard({ product }) {
                 sx={{ justifyContent: 'space-between' }}
             ></CardActions>
             <Button>Add to Cart</Button>
-            <Button>View</Button>
+            <Button component={Link} to={`/catalogue/${product.id}`}>View</Button>
         </Card>
     );
 }

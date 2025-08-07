@@ -59,8 +59,8 @@ export default function Header({ toggleDarkMode, darkMode }) {
                 <Container sx={sectionBoxStyles}>
                     <Box component={NavLink} to={homelink.path} key={homelink.path} sx={{ display: 'flex', alignItems: 'center' }}>
                         <Box component="img" src="/images/logos/dungeondirectlogonav.png" alt="DungeonDirect Logo" sx={logoStyles} />
-                        <DarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
                     </Box>
+                        <DarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
 
                     {/* Navigation Links*/}
                     <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto'}}>
