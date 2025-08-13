@@ -24,9 +24,9 @@ import {
     cartIconButtonStyles,
     accountIconButtonStyles,
     accountIconStyles
-} from '/src/theme/headerStyles';
+} from 'src/app/theme/headerStyles.jsx';
 import { NavLink } from 'react-router-dom';
-import navMenus from '/src/data/navMenus';
+import navMenus from 'src/data/navMenus';
 
 
 export default function Header({ toggleDarkMode, darkMode }) {
@@ -37,6 +37,7 @@ export default function Header({ toggleDarkMode, darkMode }) {
     const homelink = { title: 'Home', path: '/' };
     const specialslink = { title: 'Specials', path: '/catalogue/specials' };
     const newreleaseslink = { title: 'New Releases', path: '/catalogue/new-releases' };
+    // const allproductslink = { title: "All Products", path: '/catalogue/all-products'};
 
     function cartIconSVG() {
         return (
@@ -94,6 +95,8 @@ export default function Header({ toggleDarkMode, darkMode }) {
                 </Container>
             </Toolbar>
 
+
+                {/* Sub-toolbar with navigation menus */}
               <Toolbar
                 disableGutters
                 sx={{
@@ -103,14 +106,15 @@ export default function Header({ toggleDarkMode, darkMode }) {
                 paddingY: '0px !important',
                 }}
                 >
-
                 <Container
                 sx={{ display: 'flex', alignItems: 'stretch', height: '100%', paddingY: 0 }}
                 >
                 <Box sx={{ display: 'flex', width: '100%' }}>
-                    {navMenus.map((menu, index) => (
-                        <NavMenuButton key={index} title={menu.title} items={menu.items} path={menu.path} />
-                    ))}
+                    {navMenus.map((menu, index) =>
+                        !menu.path
+                            ? <NavLink key={index} title={menu.title} items={menu.items} />
+                            : <NavMenuButton key={index} title={menu.title} items={menu.items} path={menu.path} />
+                    )}
                 </Box>
                 </Container>
             </Toolbar>

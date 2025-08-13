@@ -12,12 +12,16 @@ export const menuButtonStyles = (hovering) => ({
   minHeight: 0,
   paddingTop: 0,
   paddingBottom: 0,
+  whiteSpace: 'nowrap',       
+  overflow: 'hidden',         
+  textOverflow: 'ellipsis',   
   '&:hover': {
     backgroundColor: '#f5f5f5',
     color: 'black',
     lineHeight: '1',
   },
 });
+
 
 export const dropdownPaperStyles = (theme) => ({
   position: 'absolute',   

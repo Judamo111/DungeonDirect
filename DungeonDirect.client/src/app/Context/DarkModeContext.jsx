@@ -15,4 +15,5 @@ export const DarkModeProvider = ({ children }) => {
     );
 };
 
+//not a production issue. If file is edited during development, fast refresh may remount module and toggle state might be reset
 export const useDarkMode = () => useContext(DarkModeContext);

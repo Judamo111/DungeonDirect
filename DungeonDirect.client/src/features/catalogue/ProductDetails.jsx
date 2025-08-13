@@ -8,24 +8,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useFetchProductDetailsQuery } from "./catalogueApi";
 
 
 
 export default function ProductDetails() {
 
     const {id} = useParams();
-    const [product, setProducts] = useState(null);
+    const {data: product, isLoading} = useFetchProductDetailsQuery(id ? +id : 0)
 
-    useEffect(() => {
-        fetch(`https://localhost:7221/api/products/${id}`)
-            .then(response => response.json())
-            .then(data => setProducts(data))
-            .catch(error => console.error('Error fetching product details:', error));
-    }, [id]);
-
-    if (!product) return <div>Loading...</div>;
+    if (!product || isLoading) return <div>Loading...</div>;
     if (product.length === 0) return <div>No product found</div>;
 
     const productDetails = 

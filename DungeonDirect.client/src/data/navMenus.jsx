@@ -1,5 +1,9 @@
 
 const navMenus = [
+    {
+    title: 'All Products',
+    path: '/catalogue/all-products',
+  },
   {
     title: 'Warrior Wares',
     path: '/catalogue/warrior',

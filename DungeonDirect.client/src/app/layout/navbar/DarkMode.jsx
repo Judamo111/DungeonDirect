@@ -2,7 +2,7 @@
 import IconButton from "@mui/material/IconButton";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { useDarkMode } from "../../context/DarkModeContext";
+import { useDarkMode } from "../../Context/DarkModeContext";
 
 function DarkModeToggle() {
     const { darkMode, toggleDarkMode } = useDarkMode();

@@ -6,9 +6,9 @@ import {
   dropdownPaperStyles,
   dropdownItemStyles,
   menuItemWrapperStyles
-} from '/src/theme/menuStyles';
+} from 'src/app/theme/menuStyles';
 
-export default function NavMenuButton({ title, items, path }) {
+export default function NavMenuButton({ title, path, items = [] }) {
   const [hovering, setHovering] = useState(false);
   const timeoutRef = useRef(null);
   const navigate = useNavigate();
