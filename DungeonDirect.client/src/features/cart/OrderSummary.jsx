@@ -9,24 +9,43 @@ import {
   TextField,
   MenuItem,
   Button,
-  TableRow,
 } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import { ProceedToCheckoutButton } from "./CartButtons";
+import { useFetchCartQuery } from "src/app/api/cartApi"; // ← derive subtotal here
 
-//TODO: add discount functionality
-//TODO: add shipping functionality
-export default function OrderSummary({ subtotal }) {
+const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+
+// Simple key/value row to avoid <tr> nesting issues
+function SummaryRow({ label, value, bold = false }) {
+  return (
+    <Box sx={{ display: "flex", justifyContent: "space-between", my: 0.5 }}>
+      <Typography variant="body2" color="text.secondary">{label}</Typography>
+      <Typography variant="body2" sx={{ fontWeight: bold ? 700 : 500 }}>{value}</Typography>
+    </Box>
+  );
+}
+
+export default function OrderSummary() {
   const [shipOpen, setShipOpen] = useState(false);
   const [country, setCountry] = useState("US");
-  const [state, setState] = useState("");
+  const [region, setRegion] = useState(""); // renamed from "state" to avoid confusion
   const [zip, setZip] = useState("");
 
-  const [open, setOpen] = useState(false);
+  const [discountOpen, setDiscountOpen] = useState(false);
   const [code, setCode] = useState("");
 
+  // 🔹 Get subtotal from cart (no prop injected)
+  const { data: cart } = useFetchCartQuery();
+  const items = cart?.items ?? [];
+  const subtotal = items.reduce(
+    (sum, it) => sum + Number(it.price ?? 0) * Number(it.quantity ?? 0),
+    0
+  );
+
   const handleApply = () => {
+    // TODO: apply discount via mutation, then persist result if needed
     return;
   };
 
@@ -37,26 +56,19 @@ export default function OrderSummary({ subtotal }) {
           Summary
         </Typography>
 
-        {/* shipping and tax accordion */}
-        <Paper variant="none" sx={{ width: "%100" }}>
+        {/* Shipping & Tax */}
+        <Box sx={{ width: "100%" }}>
           <Accordion
             elevation={0}
             disableGutters
             square
             expanded={shipOpen}
             onChange={(_, v) => setShipOpen(v)}
-            sx={{
-              "&::before": { display: "none" },
-              border: "none",
-            }}
+            sx={{ "&::before": { display: "none" }, border: "none" }}
           >
             <AccordionSummary
               expandIcon={<ExpandMore />}
-              sx={{
-                px: 0,
-                minHeight: 40,
-                "& .MuiAccordionSummary-content": { my: 0 },
-              }}
+              sx={{ px: 0, minHeight: 40, "& .MuiAccordionSummary-content": { my: 0 } }}
             >
               <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
                 Estimate Shipping and Tax
@@ -68,10 +80,7 @@ export default function OrderSummary({ subtotal }) {
                 Enter your destination to get a shipping estimate.
               </Typography>
 
-              <Typography
-                variant="caption"
-                sx={{ fontWeight: 600, mb: 0.5, display: "block" }}
-              >
+              <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.5, display: "block" }}>
                 Country
               </Typography>
               <TextField
@@ -87,18 +96,15 @@ export default function OrderSummary({ subtotal }) {
                 <MenuItem value="GB">United Kingdom</MenuItem>
               </TextField>
 
-              <Typography
-                variant="caption"
-                sx={{ fontWeight: 600, mb: 0.5, display: "block" }}
-              >
+              <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.5, display: "block" }}>
                 State/Province
               </Typography>
               <TextField
                 select
                 fullWidth
                 size="small"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
                 placeholder="Please select a region, state or province"
                 sx={{ mb: 1.5 }}
               >
@@ -106,10 +112,7 @@ export default function OrderSummary({ subtotal }) {
                 <MenuItem value="IL">Illinois</MenuItem>
               </TextField>
 
-              <Typography
-                variant="caption"
-                sx={{ fontWeight: 600, mb: 0.5, display: "block" }}
-              >
+              <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.5, display: "block" }}>
                 Zip/Postal Code
               </Typography>
               <TextField
@@ -120,55 +123,41 @@ export default function OrderSummary({ subtotal }) {
                 sx={{ mb: 2 }}
               />
 
-              {/* TODO: add custom text */}
+              {/* Placeholder */}
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                 Sorry, no quotes are available for this order at this time
               </Typography>
 
               <Divider sx={{ my: 1.5 }} />
-              <TableRow label="Subtotal" value="$70.97" />
-              <TableRow label="Order Total" value="$70.97" bold />
+              <SummaryRow label="Subtotal" value={currency.format(subtotal)} />
+              <SummaryRow label="Order Total" value={currency.format(subtotal)} bold />
             </AccordionDetails>
           </Accordion>
-        </Paper>
+        </Box>
 
-
-
-
-
-
+        {/* Totals outside the accordion */}
         <Box sx={{ display: "flex", justifyContent: "space-between", my: 1 }}>
           <Typography variant="body2">Subtotal</Typography>
-          <Typography variant="body2">${subtotal}</Typography>
+          <Typography variant="body2">{currency.format(subtotal)}</Typography>
         </Box>
 
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
           <Typography fontWeight="medium">Order Total</Typography>
-          <Typography fontWeight="bold">${subtotal}</Typography>
+          <Typography fontWeight="bold">{currency.format(subtotal)}</Typography>
         </Box>
 
-
-
-
-
-
-        {/* discount code accordion */}
+        {/* Discount Code */}
         <Accordion
           elevation={0}
           disableGutters
           square
-          expanded={open}
-          onChange={(_, v) => setOpen(v)}
-          sx={{ mb:1, "&::before": { display: "none" }, border: "none" }}
+          expanded={discountOpen}
+          onChange={(_, v) => setDiscountOpen(v)}
+          sx={{ mb: 1, "&::before": { display: "none" }, border: "none" }}
         >
           <AccordionSummary
             expandIcon={<ExpandMore />}
-            sx={{
-              
-              px: 0,
-              minHeight: 40,
-              "& .MuiAccordionSummary-content": { my: 0 },
-            }}
+            sx={{ px: 0, minHeight: 40, "& .MuiAccordionSummary-content": { my: 0 } }}
           >
             <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
               Apply Discount Code
@@ -176,10 +165,7 @@ export default function OrderSummary({ subtotal }) {
           </AccordionSummary>
 
           <AccordionDetails sx={{ px: 0 }}>
-            <Typography
-              variant="caption"
-              sx={{ display: "block", mb: 0.5, fontWeight: 600 }}
-            >
+            <Typography variant="caption" sx={{ display: "block", mb: 0.5, fontWeight: 600 }}>
               Enter discount code
             </Typography>
 

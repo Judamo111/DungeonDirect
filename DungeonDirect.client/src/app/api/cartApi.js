@@ -51,7 +51,7 @@ export const cartApi = createApi({
 
         try {
             await queryFulfilled;
-            if (isNewCart) dispatch(cartApi.util.invalidateTags(['Basket']));
+            if (isNewCart) dispatch(cartApi.util.invalidateTags(['Cart']));
         } catch (err) {
             console.log(err);
             patchResult.undo();

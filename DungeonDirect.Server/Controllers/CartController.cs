@@ -67,6 +67,10 @@ namespace DungeonDirect.Server.Controllers
             //remove the item or reduce its quantity
             cart.RemoveItem(productId, quantity);
             //save changes
+            
+
+            var saved = await context.SaveChangesAsync() > 0;
+            if (!saved) return BadRequest("Problem removing item");
 
             return Ok();
         }
