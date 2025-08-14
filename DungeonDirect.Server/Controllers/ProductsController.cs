@@ -1,7 +1,10 @@
-﻿using eCommerceApp.Data;
+﻿using DungeonDirect.Server.Extensions;
+using DungeonDirect.Server.RequestHelpers;
+using eCommerceApp.Data;
 using eCommerceApp.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace DungeonDirect.Server.Controllers
 {
@@ -9,9 +12,20 @@ namespace DungeonDirect.Server.Controllers
     {
         //a GET method to collect all of the products in the store and return them as a list
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProducts()
+        public async Task<ActionResult<List<Product>>> GetProducts(
+            [FromQuery]ProductParams productParams)
         {
-            return await context.Products.ToListAsync();
+
+            //deferred execution, query tree
+            var query =  context.Products
+                .Sort(productParams.OrderBy)
+                .Search(productParams.SearchTerm)
+                .Filter(productParams.Brands, productParams.Types)
+                .AsQueryable();
+
+            
+
+            return await query.ToListAsync();
         }
 
         //a GET method that returns a single product by id and routes it to a webpage

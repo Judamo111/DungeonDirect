@@ -30,13 +30,12 @@ function SummaryRow({ label, value, bold = false }) {
 export default function OrderSummary() {
   const [shipOpen, setShipOpen] = useState(false);
   const [country, setCountry] = useState("US");
-  const [region, setRegion] = useState(""); // renamed from "state" to avoid confusion
+  const [region, setRegion] = useState("");
   const [zip, setZip] = useState("");
 
   const [discountOpen, setDiscountOpen] = useState(false);
   const [code, setCode] = useState("");
 
-  // 🔹 Get subtotal from cart (no prop injected)
   const { data: cart } = useFetchCartQuery();
   const items = cart?.items ?? [];
   const subtotal = items.reduce(
@@ -45,7 +44,7 @@ export default function OrderSummary() {
   );
 
   const handleApply = () => {
-    // TODO: apply discount via mutation, then persist result if needed
+    // TODO: set up discount
     return;
   };
 
@@ -56,7 +55,7 @@ export default function OrderSummary() {
           Summary
         </Typography>
 
-        {/* Shipping & Tax */}
+        {/* tax and shipping */}
         <Box sx={{ width: "100%" }}>
           <Accordion
             elevation={0}

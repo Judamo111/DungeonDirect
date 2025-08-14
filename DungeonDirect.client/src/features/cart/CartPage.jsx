@@ -31,8 +31,6 @@ export default function CartPage() {
 
             {/* left-hand side */}
             <Box sx={{ flexGrow: 1 }}>
-
-
             {/* Table Header */}
             <Box sx={{ display: "flex", fontWeight: "bold", borderBottom: "1px solid #ccc", pb: 1, mb: 2 }}>
                 <Box sx={{ flexGrow: 1 }}>Item</Box>
@@ -45,26 +43,21 @@ export default function CartPage() {
                 <CartItem
                 key={item.productId}
                 item={item}
-                //TODO: Add functionality
-                onIncrement={() => {}}
-                onDecrement={() => {}}
-                onRemove={() => {}}
                 />
             ))}
 
             {/* cart footer buttons */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
-            <ContinueShoppingButton/>
-            <UpdateCartButton onClick={refetch} isFetching={isFetching} />
-        </Box>
+            <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
+                <ContinueShoppingButton/>
+                <UpdateCartButton onClick={refetch} isFetching={isFetching} />
             </Box>
+        </Box>
 
+        
             <OrderSummary subtotal={subtotal} />
-
         </Box>
         </Container>
         </>
-
 
     );
 }

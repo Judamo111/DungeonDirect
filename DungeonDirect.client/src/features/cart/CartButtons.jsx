@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -13,7 +13,6 @@ export function ContinueShoppingButton() {
     sessionStorage.getItem("lastBrowseRoute") || "/catalogue";
 
   const handleClick = () => {
-    // If we have browser history from a browse page, go back; otherwise, fallback
     if (location.key !== "default") {
       navigate(-1);
     } else {
@@ -53,7 +52,7 @@ export function ProceedToCheckoutButton() {
 
     return (
         <>                
-        <Button fullWidth variant="contained" color="primary" sx={{ fontWeight: "bold", py: 1 }}>
+        <Button component={Link} to="/checkout" fullWidth variant="contained" color="primary" sx={{ fontWeight: "bold", py: 1 }}>
         Proceed to Checkout
         </Button>
         </>
