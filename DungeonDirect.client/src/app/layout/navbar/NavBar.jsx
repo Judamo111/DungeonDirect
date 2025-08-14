@@ -6,12 +6,12 @@ import {
     Icon,
     IconButton,
     Container,
-    LinearProgress
+    LinearProgress,
+    Badge
 } from '@mui/material';
-import DarkMode from './DarkMode';
 import { useTheme } from '@mui/material/styles';
 import { AccountCircle } from '@mui/icons-material';
-import NavMenuButton from './NavBarMenus/NavMenuButton';
+import NavMenuButton from './NavMenuButton';
 import {
     headerToolbarStyles,
     subToolbarStyles,
@@ -28,13 +28,19 @@ import {
 } from 'src/app/theme/headerStyles.jsx';
 import { NavLink } from 'react-router-dom';
 import navMenus from 'src/data/navMenus';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFetchCartQuery } from 'src/app/api/cartApi';
+import { setDarkMode } from '../uiSlice';
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
-
-export default function NavBar({ toggleDarkMode, darkMode }) {
+export default function NavBar() {
     const theme = useTheme();
-    const {isLoading} = useSelector(state => state.ui)
-    
+    const {isLoading, darkMode} = useSelector(state => state.ui);
+    const dispatch = useDispatch();
+    const { data: cart, isLoading: cartLoading } = useFetchCartQuery();
+    const itemCount = (cart?.items ?? []).reduce((sum, item) => sum + (item.quantity ?? 0), 0);
+
     const accountlink = { title: 'Account', path: '/account' };
     const cartlink = { title: 'Cart', path: '/cart' };
     const homelink = { title: 'Home', path: '/' };
@@ -64,7 +70,9 @@ export default function NavBar({ toggleDarkMode, darkMode }) {
                     <Box component={NavLink} to={homelink.path} key={homelink.path} sx={{ display: 'flex', alignItems: 'center' }}>
                         <Box component="img" src="/images/logos/dungeondirectlogonav.png" alt="DungeonDirect Logo" sx={logoStyles} />
                     </Box>
-                        <DarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+                <IconButton onClick={() => dispatch(setDarkMode())}>
+                    {darkMode ? <DarkModeIcon /> : <LightModeIcon sx={{ color: "yellow" }} />}
+                </IconButton>
 
                     {/* Navigation Links*/}
                     <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto'}}>
@@ -92,7 +100,9 @@ export default function NavBar({ toggleDarkMode, darkMode }) {
                         </IconButton>
                         <IconButton component={NavLink} to={cartlink.path} key={cartlink.path} edge="end" color="inherit" aria-label="cart" sx={cartIconButtonStyles}>
                             <Typography className="cart-hoverable" variant="body" sx={cartTextStyles}>View Cart</Typography>
+                            <Badge badgeContent={itemCount} color="secondary" invisible={itemCount === 0}>
                             {cartIconSVG()}
+                            </Badge>
                         </IconButton>
                     </Box>
                 </Container>

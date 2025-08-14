@@ -1,13 +1,13 @@
 import React from 'react';
 import { CssBaseline, Container, Box } from '@mui/material';
-import getAppTheme from '../theme';
+import getAppTheme from '../theme/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import NavBar from './navbar/NavBar';
-import { useDarkMode } from '../Context/DarkModeContext';
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function App() {
-  const { darkMode } = useDarkMode();
+  const { darkMode } = useSelector(state => state.ui);
   const theme = getAppTheme(darkMode ? 'dark' : 'light');
 
   return (

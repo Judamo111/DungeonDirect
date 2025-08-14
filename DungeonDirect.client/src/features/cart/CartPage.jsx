@@ -1,23 +1,18 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import RefreshIcon from "@mui/icons-material/Refresh";
 import { useFetchCartQuery } from "src/app/api/cartApi";
 import CartItem from "./CartItem";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import { ExpandMore, Link } from "@mui/icons-material";
 import Container from "@mui/material/Container";
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { ContinueShoppingButton, ProceedToCheckoutButton, UpdateCartButton } from "./CartButtons";
 
 
 export default function CartPage() {
 
   const { data, isLoading, isFetching, error, refetch } =
-    useFetchCartQuery(undefined, { refetchOnMountOrArgChange: true });
+    useFetchCartQuery(undefined, { refetchOnMountOrArgChange: false });
 
   if (!data && isLoading) return <Typography>Loading Cart...</Typography>;
   if (!data && error) return <Typography>Failed to load cart.</Typography>;
@@ -36,7 +31,7 @@ export default function CartPage() {
 
         <Box sx={{ display: { xs: "block", md: "flex" }, gap: 3 }}>
 
-            {/* LEFT: Cart Items */}
+            {/* left-hand side */}
             <Box sx={{ flexGrow: 1 }}>
 
 
@@ -59,7 +54,7 @@ export default function CartPage() {
                 />
             ))}
 
-            {/* Cart footer buttons */}
+            {/* cart footer buttons */}
         <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
             <ContinueShoppingButton/>
             <UpdateCartButton onClick={refetch} isFetching={isFetching} />
@@ -69,7 +64,7 @@ export default function CartPage() {
 
 
 
-            {/* RIGHT: Summary Panel */}
+            {/* right-hand side */}
             <Box sx={{ width: "100%", maxWidth: 320 }}>
             <Paper variant="outlined" sx={{ p: 2 }}>
                 <Typography variant="h6" fontWeight="bold" gutterBottom>

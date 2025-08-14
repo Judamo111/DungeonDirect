@@ -5,7 +5,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { DarkModeProvider } from './app/Context/DarkModeContext';
 import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './app/store/store';
@@ -16,9 +15,7 @@ createRoot(document.getElementById('root')).render(
     <StrictMode>
     <Provider store={store}>
         <ToastContainer position='bottom-right' theme='colored'/>
-        <DarkModeProvider>
     <RouterProvider router={router} />
-        </DarkModeProvider>
     </Provider>
   </StrictMode>,
 )

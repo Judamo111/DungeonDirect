@@ -32,7 +32,7 @@ namespace DungeonDirect.Server.Middleware
             var response = new ProblemDetails
             {
                 Status = 500,
-                Detail = env.IsDevelopment() ? ex.StackTrace.ToString() : null,
+                Detail = env.IsDevelopment() ? ex.StackTrace?.ToString() : null,
                 Title = ex.Message
             };
 

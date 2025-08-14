@@ -2,6 +2,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { Add, Remove } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
 
 export default function CartItem({ item, onIncrement, onDecrement, onRemove }) {
   return (
@@ -33,6 +35,12 @@ export default function CartItem({ item, onIncrement, onDecrement, onRemove }) {
       {/* Price */}
       <Box
         sx={{
+            display: "flex",
+            justifyContent: "space-between"
+        }}
+      >
+      <Box
+        sx={{
           width: 100,
           textAlign: "right",
           alignSelf: "center",
@@ -43,37 +51,44 @@ export default function CartItem({ item, onIncrement, onDecrement, onRemove }) {
       </Box>
 
       {/* Quantity */}
-      <Box
+        <Box
         sx={{
-          width: 80,
-          textAlign: "right",
-          alignSelf: "center",
+            width: 97,
+            display: "flex",           
+            alignItems: "center",      
+            justifyContent: "space-evenly", 
+            ml: 3
         }}
-      >
-        <TextField
-          type="number"
-          value={item.quantity}
-          size="small"
-          sx={{ width: 60 }}
-          slotProps={{
-            input: {
-              style: { textAlign: "center" },
-              min: 1,
-            },
-          }}
-        />
-      </Box>
+        >
+        <IconButton sx={{p: 0.25, width: 20, height: 20,
+        "& .MuiSvgIcon-root": {fontSize: "1rem", },
+        }}>
+        <Remove />
+        </IconButton>
+
+        <Typography sx={{ textAlign: "center" }}>
+            {item.quantity}
+        </Typography>
+        
+        <IconButton sx={{p: 0.25, width: 20, height: 20,
+        "& .MuiSvgIcon-root": {fontSize: "1rem", },
+        }}>
+        <Add sx={{ fontSize: "1rem"}}/>
+        </IconButton>
+        </Box>
+
 
       {/* Subtotal */}
       <Box
         sx={{
-          width: 100,
+          width: 60,
           textAlign: "right",
           alignSelf: "center",
           fontWeight: 600,
         }}
       >
         ${(item.price * item.quantity).toFixed(2)}
+      </Box>
       </Box>
     </Box>
   );
