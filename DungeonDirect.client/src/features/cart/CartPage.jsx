@@ -2,11 +2,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useFetchCartQuery } from "src/app/api/cartApi";
 import CartItem from "./CartItem";
-import Paper from "@mui/material/Paper";
-import Divider from "@mui/material/Divider";
-import { ExpandMore, Link } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import { ContinueShoppingButton, ProceedToCheckoutButton, UpdateCartButton } from "./CartButtons";
+import OrderSummary from "./OrderSummary";
 
 
 export default function CartPage() {
@@ -61,39 +59,8 @@ export default function CartPage() {
         </Box>
             </Box>
 
+            <OrderSummary subtotal={subtotal} />
 
-
-
-            {/* right-hand side */}
-            <Box sx={{ width: "100%", maxWidth: 320 }}>
-            <Paper variant="outlined" sx={{ p: 2 }}>
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
-                Summary
-                </Typography>
-
-                <Divider sx={{ mb: 1 }} />
-                <Box sx={{ fontSize: 14, color: 'text.secondary', mb: 1 }}>
-                Estimate Shipping and Tax
-                <ExpandMore fontSize="small" sx={{ verticalAlign: 'middle', ml: 0.5 }} />
-                </Box>
-
-                <Box sx={{ display: "flex", justifyContent: "space-between", my: 1 }}>
-                <Typography variant="body2">Subtotal</Typography>
-                <Typography variant="body2">${subtotal}</Typography>
-                </Box>
-
-                <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-                <Typography fontWeight="medium">Order Total</Typography>
-                <Typography fontWeight="bold">${subtotal}</Typography>
-                </Box>
-
-                <Box sx={{ fontSize: 14, color: 'text.secondary', mb: 2 }}>
-                Apply Discount Code
-                <ExpandMore fontSize="small" sx={{ verticalAlign: 'middle', ml: 0.5 }} />
-                </Box>
-                <ProceedToCheckoutButton/>
-            </Paper>
-            </Box>
         </Box>
         </Container>
         </>
