@@ -4,8 +4,14 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Add, Remove } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
+import { useAddCartItemMutation, useRemoveCartItemMutation } from "src/app/api/cartApi";
 
-export default function CartItem({ item, onIncrement, onDecrement, onRemove }) {
+export default function CartItem({ item }) {
+
+  const [removeCartItem] = useRemoveCartItemMutation();
+  const [addCartItem] = useAddCartItemMutation();
+
+
   return (
     <Box sx={{ display: "flex", borderBottom: "1px solid #eee", py: 2 }}>
       {/* Image */}
@@ -15,7 +21,9 @@ export default function CartItem({ item, onIncrement, onDecrement, onRemove }) {
           alt={item.name}
           style={{ width: "100%", height: "auto" }}
         />
-        <Button variant="outlined" size="small" onClick={onRemove}>
+        <Button onClick={() => 
+          removeCartItem({productId: item.productId, quantity: item.quantity})}
+          variant="outlined" size="small">
           Remove
         </Button>
       </Box>
@@ -60,9 +68,11 @@ export default function CartItem({ item, onIncrement, onDecrement, onRemove }) {
             ml: 3
         }}
         >
-        <IconButton sx={{p: 0.25, width: 20, height: 20,
-        "& .MuiSvgIcon-root": {fontSize: "1rem", },
-        }}>
+        <IconButton 
+          onClick={() => 
+          removeCartItem({productId: item.productId, quantity: 1})}
+          sx={{p: 0.25, width: 20, height: 20, "& .MuiSvgIcon-root": {fontSize: "1rem", },}}
+          >
         <Remove />
         </IconButton>
 
@@ -70,7 +80,9 @@ export default function CartItem({ item, onIncrement, onDecrement, onRemove }) {
             {item.quantity}
         </Typography>
         
-        <IconButton sx={{p: 0.25, width: 20, height: 20,
+        <IconButton 
+        onClick={() => addCartItem({product: item, quantity: 1})}
+        sx={{p: 0.25, width: 20, height: 20,
         "& .MuiSvgIcon-root": {fontSize: "1rem", },
         }}>
         <Add sx={{ fontSize: "1rem"}}/>
