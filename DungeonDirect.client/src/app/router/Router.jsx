@@ -2,12 +2,12 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../layout/App';
 import ProductDetails from '../../features/catalogue/ProductDetails';
-import NotFound from '../errors/NotFound';
+import NotFound from '../../features/errors/NotFound';
 import Home from '../../features/home/HomePage';
 import Catalogue from '../../features/catalogue/Catalogue';
 import AboutUs from '../../features/about/AboutUs';
 import ContactUs from '../../features/contact/ContactUs';
-import Cart from '../../features/cart/Cart';
+import CartPage from '../../features/cart/CartPage';
 import Checkout from '../../features/checkout/Checkout';
 import OrderSuccess from '../../features/checkout/OrderSuccess';
 import Account from '../../features/account/Account';
@@ -40,65 +40,71 @@ import ThiefAll from 'src/features/catalogue/thief/ThiefAll';
 import ClericAll from 'src/features/catalogue/cleric/ClericAll';
 import WizardAll from 'src/features/catalogue/wizard/WizardAll';
 import RangerAll from 'src/features/catalogue/ranger/RangerAll';
-
+import { ServerError } from '../../features/errors/ServerError';
 
 export const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-        errorElement: <NotFound />,
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <NotFound />,
+    children: [
+      { path: '', element: <Home /> },
+      { path: 'about', element: <AboutUs /> },
+      { path: 'contact', element: <ContactUs /> },
+      { path: 'cart', element: <CartPage /> },
+      { path: 'checkout', element: <Checkout /> },
+      { path: 'order-success', element: <OrderSuccess /> },
+      { path: 'account', element: <Account /> },
+      { path: 'login', element: <Login /> },
+      { path: 'register', element: <Register /> },
+
+      { path: 'not-found', element: <NotFound /> },
+      { path: 'server-error', element: <ServerError /> },
+
+      {
+        path: 'catalogue',
+        element: <Catalogue />,
         children: [
-            {path: '', element: <Home />},
-            {path: 'about', element: <AboutUs />},
-            {path: 'contact', element: <ContactUs />},
-            {path: 'cart', element: <Cart />},
-            {path: 'checkout', element: <Checkout />},
-            {path: 'order-success', element: <OrderSuccess />},
-            {path: 'account', element: <Account />},
-            {path: 'login', element: <Login />},
-            {path: 'register', element: <Register />},
-            {
-                path: 'catalogue',
-                element: <Catalogue />,
-                children: [
-                    {path: 'warrior', element: <WarriorAll />},
-                    {path: 'wizard', element: <WizardAll />},
-                    {path: 'bard', element: <BardAll />},
-                    {path: 'thief', element: <ThiefAll />},
-                    {path: 'ranger', element: <RangerAll />},
-                    {path: 'cleric', element: <ClericAll />},
-                    
-                    {path: 'all-products', element: <AllProducts />},
-                    {path: ':id', element: <ProductDetails />},
-                    
-                    {path: 'warrior/armor', element: <WarriorArmor />},
-                    {path: 'warrior/weapons', element: <WarriorWeapons />},
-                    {path: 'warrior/shields', element: <WarriorShields />},
-                    
-                    {path: 'wizard/potions', element: <WizardPotions />},
-                    {path: 'wizard/robes', element: <WizardRobes />},
-                    {path: 'wizard/foci', element: <WizardFoci />},
-                    
-                    {path: 'bard/instruments', element: <BardInstruments />},
-                    {path: 'bard/attire', element: <BardAttire />},
-                    {path: 'bard/sheet-music', element: <BardSheetMusic />},
-                    
-                    {path: 'thief/tools', element: <ThiefTools />},
-                    {path: 'thief/poisons', element: <ThiefPoisons />},
-                    {path: 'thief/lockpicks', element: <ThiefLockpicks />},
-                    
-                    {path: 'ranger/ranged-weapons', element: <RangerRangedWeapons />},
-                    {path: 'ranger/traps', element: <RangerTraps />},
-                    {path: 'ranger/gear', element: <RangerGear />},
-                    
-                    {path: 'cleric/vestments', element: <ClericVestments />},
-                    {path: 'cleric/holy-water', element: <ClericHolyWater />},
-                    {path: 'cleric/iconography', element: <ClericIconography />},
-                    
-                    {path: 'specials', element: <Specials />},
-                    {path: 'new-releases', element: <NewReleases />},
-                ]
-            },
-        ]
-    }
+          { path: 'warrior', element: <WarriorAll /> },
+          { path: 'wizard', element: <WizardAll /> },
+          { path: 'bard', element: <BardAll /> },
+          { path: 'thief', element: <ThiefAll /> },
+          { path: 'ranger', element: <RangerAll /> },
+          { path: 'cleric', element: <ClericAll /> },
+
+          { path: 'all-products', element: <AllProducts /> },
+          { path: ':id', element: <ProductDetails /> },
+
+          { path: 'warrior/armor', element: <WarriorArmor /> },
+          { path: 'warrior/weapons', element: <WarriorWeapons /> },
+          { path: 'warrior/shields', element: <WarriorShields /> },
+
+          { path: 'wizard/potions', element: <WizardPotions /> },
+          { path: 'wizard/robes', element: <WizardRobes /> },
+          { path: 'wizard/foci', element: <WizardFoci /> },
+
+          { path: 'bard/instruments', element: <BardInstruments /> },
+          { path: 'bard/attire', element: <BardAttire /> },
+          { path: 'bard/sheet-music', element: <BardSheetMusic /> },
+
+          { path: 'thief/tools', element: <ThiefTools /> },
+          { path: 'thief/poisons', element: <ThiefPoisons /> },
+          { path: 'thief/lockpicks', element: <ThiefLockpicks /> },
+
+          { path: 'ranger/ranged-weapons', element: <RangerRangedWeapons /> },
+          { path: 'ranger/traps', element: <RangerTraps /> },
+          { path: 'ranger/gear', element: <RangerGear /> },
+
+          { path: 'cleric/vestments', element: <ClericVestments /> },
+          { path: 'cleric/holy-water', element: <ClericHolyWater /> },
+          { path: 'cleric/iconography', element: <ClericIconography /> },
+
+          { path: 'specials', element: <Specials /> },
+          { path: 'new-releases', element: <NewReleases /> },
+        ],
+      },
+
+      { path: '*', element: <NotFound /> },
+    ],
+  },
 ]);

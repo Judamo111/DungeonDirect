@@ -1,0 +1,72 @@
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { startLoading, stopLoading } from "../layout/uiSlice";
+import { toast } from "react-toastify";
+import { router } from "../router/Router";
+
+const customBaseQuery = fetchBaseQuery({
+  baseUrl: 'https://localhost:7221/api',
+  credentials: "include",
+});
+
+const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
+
+export const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
+  api.dispatch(startLoading());
+  if (import.meta.env.DEV) await sleep();
+
+  const result = await customBaseQuery(args, api, extraOptions);
+
+  api.dispatch(stopLoading());
+
+  if (result.error) {
+    console.log(result.error);
+
+    const originalStatus =
+      result.error.status === "PARSING_ERROR" && result.error.originalStatus
+        ? result.error.originalStatus
+        : result.error.status;
+
+    const responseData = result.error.data;
+
+    switch (originalStatus) {
+      case 400:
+        if (typeof responseData === "string") {
+          toast.error(responseData);
+        } else if (responseData && typeof responseData === "object" && "errors" in responseData) {
+          throw Object.values(responseData.errors).flat().join(", ");
+        } else if (responseData && typeof responseData === "object" && "title" in responseData) {
+          toast.error(responseData.title);
+        }
+        break;
+
+      case 401:
+        if (responseData && typeof responseData === "object" && "title" in responseData) {
+          toast.error(responseData.title);
+        }
+        break;
+
+      case 403:
+        if (responseData && typeof responseData === "object") {
+          toast.error("403 Forbidden");
+        }
+        break;
+
+      case 404:
+        if (responseData && typeof responseData === "object" && "title" in responseData) {
+          router.navigate("/not-found");
+        }
+        break;
+
+      case 500:
+        if (responseData && typeof responseData === "object") {
+          router.navigate("/server-error", { state: { error: responseData } });
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  return result;
+};

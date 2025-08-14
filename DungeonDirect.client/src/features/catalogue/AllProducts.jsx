@@ -1,4 +1,4 @@
-// AllProducts.jsx
+
 import { useOutletContext } from "react-router-dom";
 import ProductList from "./ProductList";
 

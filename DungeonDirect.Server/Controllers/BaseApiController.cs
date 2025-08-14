@@ -7,5 +7,6 @@ namespace DungeonDirect.Server.Controllers
     [ApiController]
     public class BaseApiController : ControllerBase
     {
+      
     }
 }

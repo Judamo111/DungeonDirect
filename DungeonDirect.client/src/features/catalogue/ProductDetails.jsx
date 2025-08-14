@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
-import { useFetchProductDetailsQuery } from "./catalogueApi";
+import { useFetchProductDetailsQuery } from "../../app/api/catalogueApi";
 
 
 

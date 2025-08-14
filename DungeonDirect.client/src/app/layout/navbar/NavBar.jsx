@@ -5,7 +5,8 @@ import {
     Typography,
     Icon,
     IconButton,
-    Container
+    Container,
+    LinearProgress
 } from '@mui/material';
 import DarkMode from './DarkMode';
 import { useTheme } from '@mui/material/styles';
@@ -27,10 +28,12 @@ import {
 } from 'src/app/theme/headerStyles.jsx';
 import { NavLink } from 'react-router-dom';
 import navMenus from 'src/data/navMenus';
+import { useSelector } from 'react-redux';
 
 
-export default function Header({ toggleDarkMode, darkMode }) {
+export default function NavBar({ toggleDarkMode, darkMode }) {
     const theme = useTheme();
+    const {isLoading} = useSelector(state => state.ui)
     
     const accountlink = { title: 'Account', path: '/account' };
     const cartlink = { title: 'Cart', path: '/cart' };
@@ -118,6 +121,11 @@ export default function Header({ toggleDarkMode, darkMode }) {
                 </Box>
                 </Container>
             </Toolbar>
+            {isLoading && (
+                <Box sx={{width: '%100'}}>
+                    <LinearProgress color='secondary'/>
+                </Box>
+            )}
         </AppBar>
     );
 }

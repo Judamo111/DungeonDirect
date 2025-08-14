@@ -8,6 +8,8 @@ namespace DungeonDirect.Server.Middleware
 {
     public class ExceptionMiddleware(IHostEnvironment env, ILogger<ExceptionMiddleware> logger) : IMiddleware
     {
+
+        //wrap downstream pipeline in try/catch
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -20,6 +22,7 @@ namespace DungeonDirect.Server.Middleware
             }
         }
 
+        //logs exception with stack trace
         private async Task HandleException(HttpContext context, Exception ex)
         {
             logger.LogError(ex, ex.Message);

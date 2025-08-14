@@ -1,6 +1,5 @@
-// Catalogue.jsx
 import { Outlet } from "react-router-dom";
-import { useFetchProductsQuery } from "./catalogueApi";
+import { useFetchProductsQuery } from "../../app/api/catalogueApi";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
@@ -8,8 +7,8 @@ export default function Catalogue() {
   const { data = [], isLoading, isFetching, error, refetch } =
     useFetchProductsQuery(undefined, { refetchOnMountOrArgChange: true });
 
-  if (!data.length && isLoading) return <div>Loading...</div>;
-  if (!data.length && error) return <div>Failed to load.</div>;
+  if (!data.length && isLoading) return <Typography>Loading...</Typography>;
+  if (!data.length && error) return <Typography>Failed to load.</Typography>;
 
   return (
     <>

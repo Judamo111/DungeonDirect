@@ -9,11 +9,13 @@ import { DarkModeProvider } from './app/Context/DarkModeContext';
 import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './app/store/store';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 createRoot(document.getElementById('root')).render(
     
     <StrictMode>
     <Provider store={store}>
+        <ToastContainer position='bottom-right' theme='colored'/>
         <DarkModeProvider>
     <RouterProvider router={router} />
         </DarkModeProvider>

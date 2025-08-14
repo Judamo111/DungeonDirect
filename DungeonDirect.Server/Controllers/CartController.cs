@@ -8,8 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DungeonDirect.Server.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class CartController(StoreContext context) : BaseApiController
     {
         [HttpGet]
