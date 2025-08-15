@@ -24,8 +24,11 @@ namespace DungeonDirect.Server.Controllers
                 .AsQueryable();
 
             
+            var products = await PagedList<Product>.ToPagedList(query, productParams.PageNumber, productParams.PageSize);
 
-            return await query.ToListAsync();
+            Response.AddPaginationHeader(products.Metadata);
+
+            return products;
         }
 
         //a GET method that returns a single product by id and routes it to a webpage
@@ -42,5 +45,17 @@ namespace DungeonDirect.Server.Controllers
             return Ok(product);
             
         }
+
+        [HttpGet("filters")]
+        public async Task<IActionResult> GetFilters()
+        {
+            var brands = await context.Products.Select(x => x.Brand).Distinct().ToListAsync();
+            var types = await context.Products.Select(x => x.Type).Distinct().ToListAsync();
+
+            return Ok(new {brands, types});
+        }
+
+
+
     }
 }

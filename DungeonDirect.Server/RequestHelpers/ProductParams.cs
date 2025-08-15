@@ -1,6 +1,6 @@
 ﻿namespace DungeonDirect.Server.RequestHelpers
 {
-    public class ProductParams
+    public class ProductParams : PaginationParams
     {
 
         public string? OrderBy { get; set; }
