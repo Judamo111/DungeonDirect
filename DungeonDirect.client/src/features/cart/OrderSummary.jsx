@@ -12,17 +12,24 @@ import {
 } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import { ProceedToCheckoutButton } from "./CartButtons";
+import { ProceedToCheckoutButton } from "../components/CartButtons";
 import { useFetchCartQuery } from "src/app/api/cartApi"; // ← derive subtotal here
 
-const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+const currency = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
 
 // Simple key/value row to avoid <tr> nesting issues
 function SummaryRow({ label, value, bold = false }) {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between", my: 0.5 }}>
-      <Typography variant="body2" color="text.secondary">{label}</Typography>
-      <Typography variant="body2" sx={{ fontWeight: bold ? 700 : 500 }}>{value}</Typography>
+      <Typography variant="body2" color="text.secondary">
+        {label}
+      </Typography>
+      <Typography variant="body2" sx={{ fontWeight: bold ? 700 : 500 }}>
+        {value}
+      </Typography>
     </Box>
   );
 }
@@ -67,7 +74,11 @@ export default function OrderSummary() {
           >
             <AccordionSummary
               expandIcon={<ExpandMore />}
-              sx={{ px: 0, minHeight: 40, "& .MuiAccordionSummary-content": { my: 0 } }}
+              sx={{
+                px: 0,
+                minHeight: 40,
+                "& .MuiAccordionSummary-content": { my: 0 },
+              }}
             >
               <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
                 Estimate Shipping and Tax
@@ -79,7 +90,10 @@ export default function OrderSummary() {
                 Enter your destination to get a shipping estimate.
               </Typography>
 
-              <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.5, display: "block" }}>
+              <Typography
+                variant="caption"
+                sx={{ fontWeight: 600, mb: 0.5, display: "block" }}
+              >
                 Country
               </Typography>
               <TextField
@@ -95,7 +109,10 @@ export default function OrderSummary() {
                 <MenuItem value="GB">United Kingdom</MenuItem>
               </TextField>
 
-              <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.5, display: "block" }}>
+              <Typography
+                variant="caption"
+                sx={{ fontWeight: 600, mb: 0.5, display: "block" }}
+              >
                 State/Province
               </Typography>
               <TextField
@@ -111,7 +128,10 @@ export default function OrderSummary() {
                 <MenuItem value="IL">Illinois</MenuItem>
               </TextField>
 
-              <Typography variant="caption" sx={{ fontWeight: 600, mb: 0.5, display: "block" }}>
+              <Typography
+                variant="caption"
+                sx={{ fontWeight: 600, mb: 0.5, display: "block" }}
+              >
                 Zip/Postal Code
               </Typography>
               <TextField
@@ -129,7 +149,11 @@ export default function OrderSummary() {
 
               <Divider sx={{ my: 1.5 }} />
               <SummaryRow label="Subtotal" value={currency.format(subtotal)} />
-              <SummaryRow label="Order Total" value={currency.format(subtotal)} bold />
+              <SummaryRow
+                label="Order Total"
+                value={currency.format(subtotal)}
+                bold
+              />
             </AccordionDetails>
           </Accordion>
         </Box>
@@ -156,7 +180,11 @@ export default function OrderSummary() {
         >
           <AccordionSummary
             expandIcon={<ExpandMore />}
-            sx={{ px: 0, minHeight: 40, "& .MuiAccordionSummary-content": { my: 0 } }}
+            sx={{
+              px: 0,
+              minHeight: 40,
+              "& .MuiAccordionSummary-content": { my: 0 },
+            }}
           >
             <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
               Apply Discount Code
@@ -164,7 +192,10 @@ export default function OrderSummary() {
           </AccordionSummary>
 
           <AccordionDetails sx={{ px: 0 }}>
-            <Typography variant="caption" sx={{ display: "block", mb: 0.5, fontWeight: 600 }}>
+            <Typography
+              variant="caption"
+              sx={{ display: "block", mb: 0.5, fontWeight: 600 }}
+            >
               Enter discount code
             </Typography>
 

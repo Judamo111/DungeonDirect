@@ -1,5 +1,5 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { startLoading, stopLoading } from "../layout/uiSlice";
+import { startLoading, stopLoading } from "../slices/uiSlice";
 import { toast } from "react-toastify";
 import { router } from "../router/Router";
 

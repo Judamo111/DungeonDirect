@@ -1,12 +1,15 @@
-import Box from "@mui/material/Box";
 import ProductCard from "./ProductCard";
+import Grid from "@mui/material/Grid";
 
 export default function ProductList({products}) {
     return (
-        <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 3, jusifyContent: 'center'} }>
-          {products.map((product) => {
-              return <ProductCard key={product.id} product={product}/>
-          })}
-      </Box>
+        <Grid container spacing={3}>
+          {products.map((product) => (
+              
+                  <ProductCard key={product.id} product={product}/>
+
+              
+          ))}
+      </Grid>
   );
 }

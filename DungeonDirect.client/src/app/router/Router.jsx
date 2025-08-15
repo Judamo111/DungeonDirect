@@ -33,7 +33,6 @@ import RangerGear from "src/features/catalogue/ranger/RangerGear";
 import ClericVestments from "src/features/catalogue/cleric/ClericVestments";
 import ClericHolyWater from "src/features/catalogue/cleric/ClericHolyWater";
 import ClericIconography from "src/features/catalogue/cleric/ClericIconography";
-import AllProducts from "src/features/catalogue/AllProducts";
 import WarriorAll from "src/features/catalogue/warrior/WarriorAll";
 import BardAll from "src/features/catalogue/bard/BardAll";
 import ThiefAll from "src/features/catalogue/thief/ThiefAll";
@@ -72,7 +71,6 @@ export const router = createBrowserRouter([
           { path: "ranger", element: <RangerAll /> },
           { path: "cleric", element: <ClericAll /> },
 
-          { path: "all-products", element: <AllProducts /> },
           { path: ":id", element: <ProductDetails /> },
 
           { path: "warrior/armor", element: <WarriorArmor /> },
