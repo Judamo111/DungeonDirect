@@ -1,7 +1,9 @@
 
 
 
+using DungeonDirect.Server.Entities;
 using eCommerceApp.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceApp.Data;
@@ -11,23 +13,45 @@ public class DbInitializer
     public static void InitDb(WebApplication app)
     {
         //using ensures cleanup occurs immediately when no longer in use
-        //creates a scope service (a service with a scoped lifetime)
         using var scope = app.Services.CreateScope();
 
 
         //gives access to db context
-        // ?? tells system what to do if context is Null
         var context = scope.ServiceProvider.GetRequiredService<StoreContext>()
-            ?? throw new InvalidOperationException("Failed to retrieve store context"); 
+            ?? throw new InvalidOperationException("Failed to retrieve store context");
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>()
+            ?? throw new InvalidOperationException("Failed to retrieve user manager");
 
-        SeedData(context);
+
+        SeedData(context, userManager);
     }
 
-    private static void SeedData(StoreContext context)
+    private async static void SeedData(StoreContext context, UserManager<User> userManager)
     {
 
         //applies pending migrations to the db at runtime
         context.Database.Migrate();
+
+        if (!userManager.Users.Any())
+        {
+            var user = new User
+            {
+                UserName = "name@test.com",
+                Email = "name@test.com"
+            };
+
+            await userManager.CreateAsync(user, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(user, "Member");
+
+            var admin = new User
+            {
+                UserName = "admin@test.com",
+                Email = "admin@test.com"
+            };
+
+            await userManager.CreateAsync(user, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(user, ["Member", "Admin"]);
+        }
 
         //checks whether rows exist in the product table, if so skips seeding
         if (context.Products.Any()) return;

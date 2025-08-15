@@ -53,11 +53,13 @@ export default function Catalogue() {
         ></Button>
         {isFetching && <Typography variant="caption">Updating…</Typography>}
         <Grid container spacing={4}>
+
           <Grid size={3}>
             <Grid>
               <Filters filtersData={filtersData} />
             </Grid>
           </Grid>
+
           <Grid size={9}>
             <ProductList products={data.items} />
 
